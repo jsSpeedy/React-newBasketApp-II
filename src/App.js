@@ -9,6 +9,7 @@ import {
   Button,
   Flex,
   Drawer,
+  Indicator,
 } from "@mantine/core";
 import { IconCircleCheck } from "@tabler/icons-react";
 import CardComponent from "./components/Card";
@@ -54,7 +55,9 @@ function App() {
           />
         </Input.Wrapper>
         <Button onClick={() => setSearchValue("")}>Temizle</Button>
-        <Button onClick={() => setOpened(true)}>Sepet</Button>
+        <Indicator color="red" label={basketItems.length} size={22}>
+          <Button onClick={() => setOpened(true)}>Sepet</Button>
+        </Indicator>
       </Flex>
       <SimpleGrid cols={3} className="simple">
         {filteredItems.map(({ name, price, src }, index) => {
