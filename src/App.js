@@ -11,7 +11,11 @@ import {
   Drawer,
   Indicator,
 } from "@mantine/core";
-import { IconCircleCheck } from "@tabler/icons-react";
+import {
+  IconCircleCheck,
+  IconDatabase,
+  IconBasketFilled,
+} from "@tabler/icons-react";
 import CardComponent from "./components/Card";
 import { useState } from "react";
 
@@ -56,7 +60,9 @@ function App() {
         </Input.Wrapper>
         <Button onClick={() => setSearchValue("")}>Temizle</Button>
         <Indicator color="red" label={basketItems.length} size={22}>
-          <Button onClick={() => setOpened(true)}>Sepet</Button>
+          <Button leftIcon={<IconDatabase />} onClick={() => setOpened(true)}>
+            <IconBasketFilled size={22} />
+          </Button>
         </Indicator>
       </Flex>
       <SimpleGrid cols={3} className="simple">
