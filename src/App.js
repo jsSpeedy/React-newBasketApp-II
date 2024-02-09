@@ -8,6 +8,7 @@ import {
   Input,
   Button,
   Flex,
+  Drawer,
 } from "@mantine/core";
 import { IconCircleCheck } from "@tabler/icons-react";
 import CardComponent from "./components/Card";
@@ -37,6 +38,7 @@ const storeItems = [
 ];
 
 function App() {
+  let [opened, setOpened] = useState(false);
   let [basketItems, setBasketItems] = useState([]);
   let [searchValue, setSearchValue] = useState("");
   let filteredItems = storeItems.filter(
@@ -52,6 +54,7 @@ function App() {
           />
         </Input.Wrapper>
         <Button onClick={() => setSearchValue("")}>Temizle</Button>
+        <Button onClick={() => setOpened(true)}>Sepet</Button>
       </Flex>
       <SimpleGrid cols={3} className="simple">
         {filteredItems.map(({ name, price, src }, index) => {
@@ -66,22 +69,23 @@ function App() {
           );
         })}
       </SimpleGrid>
-
-      <List
-        className="list"
-        spacing="xs"
-        size="sm"
-        center
-        icon={
-          <ThemeIcon color="teal" size={24} radius="xl">
-            <IconCircleCheck style={{ width: rem(16), height: rem(16) }} />
-          </ThemeIcon>
-        }
-      >
-        {basketItems.map(({ name }, index) => (
-          <List.Item key={index}>{name}</List.Item>
-        ))}
-      </List>
+      <Drawer opened={opened} onClose={() => setOpened(false)} title="Sepetim">
+        <List
+          className="list"
+          spacing="md"
+          size="md"
+          center
+          icon={
+            <ThemeIcon color="teal" size={24} radius="xl">
+              <IconCircleCheck style={{ width: rem(16), height: rem(16) }} />
+            </ThemeIcon>
+          }
+        >
+          {basketItems.map(({ name }, index) => (
+            <List.Item key={index}>{name}</List.Item>
+          ))}
+        </List>
+      </Drawer>
     </Container>
   );
 }
