@@ -13,15 +13,23 @@ import { useState } from "react";
 
 const storeItems = [
   {
-    name: "ütü",
+    name: "Oyuncak Araba",
+    src: "araba",
     price: 20,
   },
   {
-    name: "Basket Topu",
+    name: "Ayakkabı",
+    src: "ayakkabı",
     price: 10,
   },
   {
-    name: "Çikolota",
+    name: "Kamera",
+    src: "camera",
+    price: 25,
+  },
+  {
+    name: "Klasik Saat",
+    src: "saat",
     price: 25,
   },
 ];
@@ -35,10 +43,11 @@ function App() {
   return (
     <Container>
       <SimpleGrid cols={3} className="simple">
-        {storeItems.map(({ name, price }, index) => {
+        {storeItems.map(({ name, price, src }, index) => {
           return (
             <CardComponent
               name={name}
+              src={src}
               price={price}
               key={index}
               onAdd={() => setBasketItems([...basketItems, { name }])}
