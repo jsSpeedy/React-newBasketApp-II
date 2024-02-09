@@ -22,7 +22,7 @@ const CardComponent = ({ name, price, onAdd }) => {
       </Text>
 
       <Button color="blue" fullWidth mt="md" radius="md" onClick={onAdd}>
-        Book classic tour now
+        Ekle
       </Button>
     </Card>
   );
