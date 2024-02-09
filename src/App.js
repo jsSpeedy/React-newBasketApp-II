@@ -10,6 +10,7 @@ import {
   Flex,
   Drawer,
   Indicator,
+  Badge,
 } from "@mantine/core";
 import {
   IconCircleCheck,
@@ -21,21 +22,25 @@ import { useState } from "react";
 
 const storeItems = [
   {
+    id: 100,
     name: "Oyuncak Araba",
     src: "araba",
     price: 20,
   },
   {
+    id: 101,
     name: "Ayakkabı",
     src: "ayakkabı",
     price: 10,
   },
   {
+    id: 102,
     name: "Kamera",
     src: "camera",
     price: 25,
   },
   {
+    id: 103,
     name: "Klasik Saat",
     src: "saat",
     price: 25,
@@ -49,6 +54,16 @@ function App() {
   let filteredItems = storeItems.filter(
     (item) => item.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
   );
+  let addToBasket = ({ id, name }) => {
+    let basketIndex = basketItems.findIndex((item) => item.id === id);
+    if (basketIndex >= 0) {
+      let _basketItems = [...basketItems];
+      _basketItems[basketIndex].count += 1;
+      setBasketItems(_basketItems);
+    } else {
+      setBasketItems([...basketItems, { id, name, count: 1 }]);
+    }
+  };
   return (
     <Container>
       <Flex align="flex-end" gap="sm" justify="center">
@@ -66,14 +81,14 @@ function App() {
         </Indicator>
       </Flex>
       <SimpleGrid cols={3} className="simple">
-        {filteredItems.map(({ name, price, src }, index) => {
+        {filteredItems.map(({ id, name, price, src }, index) => {
           return (
             <CardComponent
               name={name}
               src={src}
               price={price}
               key={index}
-              onAdd={() => setBasketItems([...basketItems, { name }])}
+              onAdd={() => addToBasket({ id, name })}
             />
           );
         })}
@@ -90,8 +105,13 @@ function App() {
             </ThemeIcon>
           }
         >
-          {basketItems.map(({ name }, index) => (
-            <List.Item key={index}>{name}</List.Item>
+          {basketItems.map(({ name, count }, index) => (
+            <List.Item key={index}>
+              <Flex align="center" gap="sm">
+                {name}
+                <Badge variant="light">{count}</Badge>
+              </Flex>
+            </List.Item>
           ))}
         </List>
       </Drawer>
