@@ -6,6 +6,8 @@ import {
   ThemeIcon,
   rem,
   Input,
+  Button,
+  Flex,
 } from "@mantine/core";
 import { IconCircleCheck } from "@tabler/icons-react";
 import CardComponent from "./components/Card";
@@ -42,9 +44,15 @@ function App() {
   );
   return (
     <Container>
-      <Input.Wrapper label="Arama">
-        <Input onChange={(e) => setSearchValue(e.target.value)} />
-      </Input.Wrapper>
+      <Flex align="flex-end" gap="sm" justify="center">
+        <Input.Wrapper label="Arama">
+          <Input
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </Input.Wrapper>
+        <Button onClick={() => setSearchValue("")}>Temizle</Button>
+      </Flex>
       <SimpleGrid cols={3} className="simple">
         {filteredItems.map(({ name, price, src }, index) => {
           return (
