@@ -1,6 +1,13 @@
 import "./App.css";
-import { Container, SimpleGrid, List, ThemeIcon, rem } from "@mantine/core";
-import { IconCircleCheck, IconCircleDashed } from "@tabler/icons-react";
+import {
+  Container,
+  SimpleGrid,
+  List,
+  ThemeIcon,
+  rem,
+  Input,
+} from "@mantine/core";
+import { IconCircleCheck } from "@tabler/icons-react";
 import CardComponent from "./components/Card";
 import { useState } from "react";
 
@@ -21,6 +28,10 @@ const storeItems = [
 
 function App() {
   let [basketItems, setBasketItems] = useState([]);
+  let [searchValue, setSearchValue] = useState("");
+  let filteredItems = basketItems.filter(
+    (item) => item.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+  );
   return (
     <Container>
       <SimpleGrid cols={3} className="simple">
@@ -35,6 +46,9 @@ function App() {
           );
         })}
       </SimpleGrid>
+      <Input.Wrapper label="Arama">
+        <Input onChange={(e) => setSearchValue(e.target.value)} />
+      </Input.Wrapper>
       <List
         className="list"
         spacing="xs"
@@ -46,7 +60,7 @@ function App() {
           </ThemeIcon>
         }
       >
-        {basketItems.map(({ name }, index) => (
+        {filteredItems.map(({ name }, index) => (
           <List.Item key={index}>{name}</List.Item>
         ))}
       </List>
